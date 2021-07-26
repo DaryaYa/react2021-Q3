@@ -1,9 +1,11 @@
 import React from "react";
 import "./app.less";
+import { SearchBar } from "./SearchBar";
 
-console.log("retrwr");
 const App = () => {
-  return <div className="app">React is working!</div>;
+  return <div className="app">
+    <SearchBar />
+  </div>;
 };
 
 export default App;
