@@ -1,11 +1,11 @@
-import React from "react";
-import "./app.less";
-import { SearchBar } from "./SearchBar";
+import React from 'react';
+import './app.less';
+import SearchBar from './SearchBar';
 
-const App = () => {
-  return <div className="app">
+const App = () => (
+  <div className="app">
     <SearchBar />
-  </div>;
-};
+  </div>
+);
 
 export default App;

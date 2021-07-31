@@ -1,21 +1,26 @@
-import React from "react";
+import React from 'react';
 import './searchBar.less';
-import glass from "../img/glass.png";
+import glass from '../img/glass.png';
 
-export const SearchBar = () => (
-    <form action="/" method="get">
-      <label htmlFor="header-search">
-        {/* <span className="visually-hidden">Search the cards</span> */}
-      </label>
-      <div className="wrapper">
-         <input className="input"
+const SearchBar = () => (
+  <form action="/" method="get">
+    <label htmlFor="header-search">
+      {/* <span className="visually-hidden">Search the cards</span> */}
+    </label>
+    <div className="wrapper">
+      <input
+        className="input"
         type="text"
         id="header-search"
         placeholder="Search the cards"
-        name="s"     
+        name="s"
       />
-      <button className="search-button" type="submit"><img src={glass} className="glass" /> </button>
-      </div>
-        
-    </form>
+      <button className="search-button" type="submit">
+        <img src={glass} className="glass" alt="img" />
+        {' '}
+      </button>
+    </div>
+  </form>
 );
+
+export default SearchBar;

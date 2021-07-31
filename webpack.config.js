@@ -1,44 +1,47 @@
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-module.exports = {
-  mode: "development",
-  entry: "./src/index.jsx",
+module.exports = ({dev}) => ({
+  mode: dev ? 'development' : 'production',
+  devtool: dev ? 'source-map' : false,
+  entry: './src/index.jsx',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].[hash].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
   },
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 3000,
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new HTMLWebpackPlugin({ template: "./src/index.html" }),
+    new HTMLWebpackPlugin({ template: './src/index.html' }),
     new CleanWebpackPlugin(),
+    new FaviconsWebpackPlugin('logo.png'),
   ],
   module: {
     rules: [
       {
         test: /\.(less|css)$/i,
-        use: ["style-loader", "css-loader", "less-loader"],
+        use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)/,
-        use: ["file-loader"],
+        use: ['file-loader'],
       },
       {
         test: /\.jsx?$/, // определяем тип файлов
         exclude: /(node_modules)/, // исключаем из обработки папку node_modules
-        loader: "babel-loader", // определяем загрузчик
+        loader: 'babel-loader', // определяем загрузчик
         options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"], // используемые плагины
+          presets: ['@babel/preset-env', '@babel/preset-react'], // используемые плагины
         },
       },
     ],
   },
-};
+});

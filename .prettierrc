@@ -1,0 +1,10 @@
+{
+  "parser": "flow",
+  "semi": true,
+  "singleQuote": true,
+   "rules": {
+    "prettier/prettier": 1,
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off"
+  }
+}
