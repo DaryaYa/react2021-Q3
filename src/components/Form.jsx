@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './form.less';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -9,20 +9,56 @@ const Form = ({ setFormValues }) => {
   const [lastName, setLastName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [country, setCountry] = useState('');
-  const [agree, setAgree] = useState(true);
+  const [agree, setAgree] = useState(false);
   const [time, setTime] = useState('');
+  const [error, setError] = useState({});
+
+  useEffect((() => {
+    const validate = () => {
+      setError({});
+      if (!agree) {
+        setError((state) => ({ ...state, agree }));
+      }
+      if (birthday === '') {
+        setError((state) => ({ ...state, birthday }));
+      }
+      if (firstName === '') {
+        setError((state) => ({ ...state, firstName }));
+      }
+      if (lastName === '') {
+        setError((state) => ({ ...state, lastName }));
+      }
+      if (country === '') {
+        setError((state) => ({ ...state, country }));
+      }
+    };
+    validate();
+  }), [agree, birthday, country, firstName, lastName]);
+
+  const reset = () => {
+    setFirstName('');
+    setLastName('');
+    setBirthday('');
+    setCountry('');
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setFormValues((state) => [...state, {
-      firstName, lastName, birthday, country, agree, time,
-    }]);
-    console.log(firstName, lastName, birthday, country, agree, time);
+    if (Object.keys(error).length === 0) {
+      setFormValues((state) => [...state, {
+        firstName, lastName, birthday, country, agree, time,
+      }]);
+    }
+    console.log(firstName, lastName, birthday, country, agree, time, error);
+    reset();
   };
+
   return (
     <form method="POST" onSubmit={handleSubmit} className="form">
       <label htmlFor="firstName">
         First Name:
+        {' '}
+        {error?.firstName !== undefined && <span className="error"> * should be filled</span>}
         <input
           className="form-input"
           type="text"
@@ -35,6 +71,8 @@ const Form = ({ setFormValues }) => {
 
       <label htmlFor="lastName">
         Last Name:
+        {' '}
+        {error?.lastName !== undefined && <span className="error"> * should be filled</span>}
         <input
           className="form-input"
           type="text"
@@ -47,6 +85,8 @@ const Form = ({ setFormValues }) => {
 
       <label htmlFor="birthday">
         DOB:
+        {' '}
+        {error?.birthday !== undefined && <span className="error"> * should be chosen</span>}
         <input
           className="form-input"
           type="date"
@@ -59,6 +99,8 @@ const Form = ({ setFormValues }) => {
 
       <label htmlFor="country">
         Country:
+        {' '}
+        {error?.country !== undefined && <span className="error"> * should be chosen</span>}
         <select
           defaultValue="USA"
           className="select"
@@ -75,7 +117,10 @@ const Form = ({ setFormValues }) => {
       </label>
 
       <label className="agree" htmlFor="agree">
+
         I agree:
+        {error?.agree !== undefined && <span className="error"> * should be checked</span>}
+
         <input
           type="checkbox"
           id="agree"
