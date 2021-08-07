@@ -9,6 +9,7 @@ const Form = ({ setFormValues }) => {
   const [agree, setAgree] = useState(false);
   const [time, setTime] = useState('');
   const [error, setError] = useState({});
+  const [gender, setGender] = useState('');
 
   useEffect((() => {
     const validate = () => {
@@ -28,25 +29,29 @@ const Form = ({ setFormValues }) => {
       if (country === '') {
         setError((state) => ({ ...state, country }));
       }
+      if (gender === '') {
+        setError((state) => ({ ...state, gender }));
+      }
     };
     validate();
-  }), [agree, birthday, country, firstName, lastName]);
+  }), [agree, birthday, country, firstName, lastName, gender]);
 
   const reset = () => {
     setFirstName('');
     setLastName('');
     setBirthday('');
     setCountry('');
+    setGender('');
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (Object.keys(error).length === 0) {
       setFormValues((state) => [...state, {
-        firstName, lastName, birthday, country, agree, time,
+        firstName, lastName, birthday, country, agree, time, gender,
       }]);
     }
-    console.log(firstName, lastName, birthday, country, agree, time, error);
+    console.log(firstName, lastName, birthday, country, agree, time, error, gender);
     reset();
   };
 
@@ -111,6 +116,37 @@ const Form = ({ setFormValues }) => {
           <option>Ukraine</option>
           <option>USA</option>
         </select>
+      </label>
+
+      <label htmlFor="gender" className="gender">
+        Your gender:
+        {error?.gender !== undefined && <span className="error"> * should be chosen</span>}
+        <input
+          type="radio"
+          value="male"
+          id="male"
+          onChange={(event) => setGender(event.target.value)}
+          name="gender"
+        />
+        Male
+
+        <input
+          type="radio"
+          value="female"
+          id="female"
+          onChange={(event) => setGender(event.target.value)}
+          name="gender"
+        />
+        Female
+
+        <input
+          type="radio"
+          value="other"
+          id="female"
+          onChange={(event) => setGender(event.target.value)}
+          name="gender"
+        />
+        Other
       </label>
 
       <label className="agree" htmlFor="agree">
