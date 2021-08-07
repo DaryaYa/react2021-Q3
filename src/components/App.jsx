@@ -19,7 +19,11 @@ const App = () => {
     <div className="app">
       <Form setFormValues={setFormValues} />
       <div className="tickets">
-        {formValues.map((item, key) => <div key={key}><Ticket item={item} /></div>)}
+        {formValues.map((item, key) => (
+          <div key={key}>
+            <Ticket item={item} />
+          </div>
+        ))}
       </div>
       <SearchBar />
       <div className="cards-wrapper">
@@ -32,7 +36,6 @@ const App = () => {
         <Card img={img7} pictureTag="forest-7" price="230" />
         <Card img={img8} pictureTag="forest-8" price="110" />
       </div>
-
     </div>
   );
 };

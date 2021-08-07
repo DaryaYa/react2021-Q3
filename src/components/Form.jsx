@@ -1,9 +1,6 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-/* eslint-disable react/react-in-jsx-scope */
 import React, { useState, useEffect } from 'react';
 import './form.less';
 
-// eslint-disable-next-line import/prefer-default-export
 const Form = ({ setFormValues }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
