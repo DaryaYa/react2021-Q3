@@ -9,10 +9,11 @@
     "SharedArrayBuffer": "readonly"
   },
   "extends": [
-    
-    //  "eslint:recommended", 
+    // "eslint:recommended",
     "plugin:react/recommended",
-   "airbnb", "airbnb/hooks"],
+    "airbnb", "airbnb/hooks"
+  ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -23,12 +24,21 @@
   "plugins": ["react", "import", "prettier"],
   "rules": {
     "no-console": 1,
+    "no-debugger": 1,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "react/prop-types": 0,
     "react/no-array-index-key": 0,
     "no-eval": "error",
     "import/first": "error",
-     "prettier/prettier": 0
+    "no-unused-vars": 1,
+    "quotes": ["warn", "single", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }],
+    "jsx-quotes": ["warn", "prefer-single"],
+    "react/jsx-one-expression-per-line": 0,
+    "object-curly-newline": 0,
+    "prettier/prettier": 1
   }
 }

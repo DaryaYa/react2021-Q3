@@ -6,7 +6,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 module.exports = ({dev}) => ({
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'source-map' : false,
-  entry: './src/index.jsx',
+  entry: ["regenerator-runtime/runtime.js", './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
