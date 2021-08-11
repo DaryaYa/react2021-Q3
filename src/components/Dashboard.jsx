@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from 'react';
+// import { Link } from 'react-router-dom';
 import axiosInstance from '../services/api';
 import Article from './Article';
 import './dashboard.less';
@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [art, setArt] = useState([]);
   const [sortBy, setSortBy] = useState('publishedAt');
+  const [page, setPage] = useState(1);
 
   const handleChange = (event) => setSearchValue(event.target.value);
   const handleSubmit = async (e) => {
@@ -19,13 +20,25 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const response = await axiosInstance.get(
-        `v2/everything?q=${searchValue}&sortBy=${sortBy}&apiKey=${process.env.API_KEY}`,
+        `v2/everything?q=${searchValue}&sortBy=${sortBy}&pageSize=10&page=${page}&apiKey=${process.env.API_KEY}`,
       );
       setArt(response.data.articles);
     } catch (err) {
       console.error(err);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const goToNextPage = () => {
+    setPage((currentPage) => currentPage + 1);
+  };
+
+  const goToPrevPage = () => {
+    if (page > 2) {
+      setPage((currentPage) => currentPage - 1);
+    } else {
+      setPage(1);
     }
   };
 
@@ -41,6 +54,7 @@ const Dashboard = () => {
             value={searchValue}
             onChange={handleChange}
             disabled={isLoading}
+            checked={sortBy === 'publishedAt'}
           />
         </label>
         <label htmlFor='radio'>
@@ -50,6 +64,7 @@ const Dashboard = () => {
             id='publishedAt'
             value='publishedAt'
             name='sort'
+            checked={sortBy === 'publishedAt'}
             onChange={(e) => setSortBy(e.target.value)}
           />
           publishedAt
@@ -58,6 +73,7 @@ const Dashboard = () => {
             id='popularity'
             value='popularity'
             name='sort'
+            checked={sortBy === 'popularity'}
             onChange={(e) => setSortBy(e.target.value)}
           />
           popularity
@@ -73,17 +89,27 @@ const Dashboard = () => {
         <button type='submit' disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Search'}
         </button>
+        <div>
+          {art.map((elem, ind) => (
+            <Article elem={elem} key={ind} />
+          ))}
+        </div>
+        <div className='pagination'>
+          <button type='submit' onClick={goToPrevPage}>
+            prev page
+          </button>
+          <span> &lt;&lt; {page} &gt;&gt; </span>
+          <button type='submit' onClick={goToNextPage}>
+            next page
+          </button>
+        </div>
       </form>
-      <div>
-        {art.map((elem, ind) => (
-          <Article elem={elem} key={ind} />
-        ))}
-      </div>
-      <Link to='/posts'>
-        <button type='button'>Posts</button>
-      </Link>
     </div>
   );
 };
 
 export default Dashboard;
+
+//  <Link to='/posts'>
+//         <button type='button'>Posts</button>
+//       </Link>
