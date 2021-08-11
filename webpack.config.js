@@ -2,11 +2,12 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = ({dev}) => ({
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'source-map' : false,
-  entry: './src/index.jsx',
+  entry: ["regenerator-runtime/runtime.js", './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
@@ -23,6 +24,7 @@ module.exports = ({dev}) => ({
     new HTMLWebpackPlugin({ template: './src/index.html' }),
     new CleanWebpackPlugin(),
     new FaviconsWebpackPlugin('logo.png'),
+    new Dotenv()
   ],
   module: {
     rules: [
