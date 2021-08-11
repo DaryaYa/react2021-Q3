@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime';
 import React, { useState } from 'react';
+import { CircleToBlockLoading } from 'react-loadingg';
 // import { Link } from 'react-router-dom';
 import axiosInstance from '../services/api';
 import Article from './Article';
@@ -46,6 +47,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Dashboard</h1>
+
       <form className='form-main' onSubmit={handleSubmit}>
         <label htmlFor='search'>
           <input
@@ -91,9 +93,11 @@ const Dashboard = () => {
           {isLoading ? 'Loading...' : 'Search'}
         </button>
         <div>
-          {art.map((elem, ind) => (
-            <Article elem={elem} key={ind} />
-          ))}
+          {isLoading ? (
+            <CircleToBlockLoading color='#00A300' size='large' />
+          ) : (
+            art.map((elem, ind) => <Article elem={elem} key={ind} />)
+          )}
         </div>
         <div className='pagination'>
           <button type='submit' onClick={goToPrevPage}>
