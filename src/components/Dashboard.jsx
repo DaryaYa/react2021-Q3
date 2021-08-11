@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 import axiosInstance from '../services/api';
 import Article from './Article';
@@ -8,11 +8,12 @@ import './dashboard.less';
 // const sort = { relevancy: 'relevancy', popularity: 'popularity', publishedAt: 'published' };
 
 const Dashboard = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('news');
   const [isLoading, setIsLoading] = useState(false);
   const [art, setArt] = useState([]);
   const [sortBy, setSortBy] = useState('publishedAt');
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const handleChange = (event) => setSearchValue(event.target.value);
   const handleSubmit = async (e) => {
@@ -20,7 +21,7 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const response = await axiosInstance.get(
-        `v2/everything?q=${searchValue}&sortBy=${sortBy}&pageSize=10&page=${page}&apiKey=${process.env.API_KEY}`,
+        `v2/everything?q=${searchValue}&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=${process.env.API_KEY}`,
       );
       setArt(response.data.articles);
     } catch (err) {
@@ -51,10 +52,9 @@ const Dashboard = () => {
             type='text'
             id='search'
             className='search-main'
-            value={searchValue}
+            value={searchValue || 'news'}
             onChange={handleChange}
             disabled={isLoading}
-            checked={sortBy === 'publishedAt'}
           />
         </label>
         <label htmlFor='radio'>
@@ -82,6 +82,7 @@ const Dashboard = () => {
             id='relevancy'
             value='relevancy'
             name='sort'
+            checked={sortBy === 'relevancy'}
             onChange={(e) => setSortBy(e.target.value)}
           />
           relevancy
@@ -102,6 +103,26 @@ const Dashboard = () => {
           <button type='submit' onClick={goToNextPage}>
             next page
           </button>
+          <label htmlFor='pageSize'>
+            Page Size: (max 100)
+            <input
+              type='text'
+              id='pageSize'
+              value={pageSize}
+              onChange={(e) => setPageSize(parseInt(e.target.value, 10) || 10)}
+              disabled={isLoading}
+            />
+          </label>
+          <label htmlFor='pageNumber'>
+            Current Page: (max {art.totalResults / pageSize} )
+            <input
+              type='text'
+              id='pageNumber'
+              value={page}
+              onChange={(e) => setPage(parseInt(e.target.value, 10) || 1)}
+              disabled={isLoading}
+            />
+          </label>
         </div>
       </form>
     </div>

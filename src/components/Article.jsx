@@ -3,7 +3,7 @@ import React from 'react';
 const Article = ({ elem, ind }) => (
   <div className='elem-wrapper'>
     <a href={elem.url} target='_blank' rel='noreferrer'>
-      <img src={elem.urlToImage} alt='img' />
+      <img src={elem.urlToImage} alt='link to the article' />
     </a>
     <ul key={ind}>
       <li>Title: {elem.title}</li>
