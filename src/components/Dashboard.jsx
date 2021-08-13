@@ -15,6 +15,7 @@ const Dashboard = () => {
   const [sortBy, setSortBy] = useState('publishedAt');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [totalResults, setTotalResults] = useState(1);
 
   const handleChange = (event) => setSearchValue(event.target.value);
   const handleSubmit = async (e) => {
@@ -25,6 +26,7 @@ const Dashboard = () => {
         `v2/everything?q=${searchValue}&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=${process.env.API_KEY}`,
       );
       setArt(response.data.articles);
+      setTotalResults(response.data.totalResults);
     } catch (err) {
       console.error(err);
     } finally {
@@ -113,19 +115,20 @@ const Dashboard = () => {
               type='text'
               id='pageSize'
               value={pageSize}
-              onChange={(e) => setPageSize(parseInt(e.target.value, 10) || 10)}
+              onChange={(e) => setPageSize(Math.round(e.target.value) || 10)}
               disabled={isLoading}
             />
           </label>
           <label htmlFor='pageNumber'>
-            Current Page: (max {art.totalResults / pageSize} )
+            Current Page:
             <input
               type='text'
               id='pageNumber'
               value={page}
-              onChange={(e) => setPage(parseInt(e.target.value, 10) || 1)}
+              onChange={(e) => setPage(Math.round(e.target.value) || 1)}
               disabled={isLoading}
-            />
+            />{' '}
+            (max {Math.round(totalResults / pageSize)} )
           </label>
         </div>
       </form>
