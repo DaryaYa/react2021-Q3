@@ -16,6 +16,7 @@ module.exports = ({dev}) => ({
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 3000,
+    open: true,
   },
   resolve: {
     extensions: ['.js', '.jsx'],

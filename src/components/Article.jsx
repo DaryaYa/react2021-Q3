@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Article = ({ elem, ind }) => (
   <div className='elem-wrapper'>
@@ -10,6 +11,7 @@ const Article = ({ elem, ind }) => (
       <li>Author: {elem.author}</li>
       <li>Description: {elem.description}</li>
       <li>PublishedAt: {elem.publishedAt}</li>
+      <Link to={{ pathname: '/details', state: { elem } }}>DETAILS</Link>
     </ul>
   </div>
 );

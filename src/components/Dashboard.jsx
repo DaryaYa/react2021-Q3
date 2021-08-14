@@ -6,10 +6,8 @@ import axiosInstance from '../services/api';
 import Article from './Article';
 import './dashboard.less';
 
-// const sort = { relevancy: 'relevancy', popularity: 'popularity', publishedAt: 'published' };
-
 const Dashboard = () => {
-  const [searchValue, setSearchValue] = useState('news');
+  const [searchValue, setSearchValue] = useState('star wars');
   const [isLoading, setIsLoading] = useState(false);
   const [art, setArt] = useState([]);
   const [sortBy, setSortBy] = useState('publishedAt');
