@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Dashboard from './Dashboard';
 import Posts from './Posts';
 import About from './About';
@@ -25,15 +26,15 @@ const App = () => (
       <button type='button'>
         <Link to='/about'>About</Link>
       </button>
-
-      <Switch>
-        <Route exact path='/' component={Dashboard} />
-        <Route exact path='/about' component={About} />
-        <Route path='/details'>
-          <Posts />
-        </Route>
-        <Route component={() => <div>404 Not found</div>} />
-      </Switch>
+      <section className='main'>
+        <Switch>
+          <Route exact path='/' component={Dashboard} />
+          <Route exact path='/about' component={About} />
+          <Route path='/details'>
+            <Posts />
+          </Route>
+        </Switch>
+      </section>
     </Router>
   </div>
 );

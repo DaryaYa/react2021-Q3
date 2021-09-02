@@ -22,7 +22,7 @@ const Posts = (props) => {
 
   return (
     <div className='elem-wrapper'>
-      <h1>props from article </h1>;
+      <h1>props from article </h1>
       <img src={cust.elem.urlToImage} alt='link to the article' />
       <ul>
         <li>Title: {cust.elem.title}</li>
