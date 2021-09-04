@@ -2,15 +2,21 @@ const defaultState = {
   cash: 0,
 };
 
-const cashReducer = (state = defaultState, action) => {
+const ADD = 'ADD';
+const REMOVE = 'REMOVE';
+
+export const cashReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'ADD':
+    case ADD:
       return { ...state, cash: state.cash + action.payload };
-    case 'REMOVE':
+    case REMOVE:
       return { ...state, cash: state.cash - action.payload };
     default:
       return state;
   }
 };
 
-export default cashReducer;
+export const addCashAction = (payload) => ({ type: ADD, payload });
+export const removeCashAction = (payload) => ({ type: REMOVE, payload });
+
+// export export default { cashReducer, addCashAction, removeCashAction };
