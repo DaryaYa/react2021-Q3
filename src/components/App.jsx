@@ -1,31 +1,49 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import Posts from './Posts';
+import About from './About';
 import './app.less';
-import SearchBar from './SearchBar';
-import Card from './Card';
-import img1 from '../img/1.jpg';
-import img2 from '../img/2.jpg';
-import img3 from '../img/3.jpg';
-import img4 from '../img/4.jpg';
-import img5 from '../img/5.jpg';
-import img6 from '../img/6.jpg';
-import img7 from '../img/7.jpg';
-import img8 from '../img/8.jpg';
+
+// const navData = [
+//   {
+//     Component: <Dashboard />,
+//     path: '/',
+//   },
+//   {
+//     Component: <Posts />,
+//     path: '/posts',
+//   },
+// ];
 
 const App = () => (
-  <div className="app">
-    <SearchBar />
-    <div className="cards-wrapper">
-      <Card img={img1} pictureTag="forest-1" price="100" />
-      <Card img={img2} pictureTag="forest-2" price="50" />
-      <Card img={img3} pictureTag="forest-3" price="200" />
-      <Card img={img4} pictureTag="forest-4" price="300" />
-      <Card img={img5} pictureTag="forest-5" price="130" />
-      <Card img={img6} pictureTag="forest-6" price="190" />
-      <Card img={img7} pictureTag="forest-7" price="230" />
-      <Card img={img8} pictureTag="forest-8" price="110" />
-    </div>
+  <div className='app'>
+    <Router>
+      <button type='button'>
+        <Link to='/'>Home</Link>
+      </button>
+      <button type='button'>
+        <Link to='/about'>About</Link>
+      </button>
 
+      <Switch>
+        <Route exact path='/' component={Dashboard} />
+        <Route exact path='/about' component={About} />
+        <Route path='/details'>
+          <Posts />
+        </Route>
+        <Route component={() => <div>404 Not found</div>} />
+      </Switch>
+    </Router>
   </div>
 );
 
 export default App;
+
+// {navData.map(({ Component, path }) => (
+//   <Route exact path={path} key={path.toString()}>
+//     {Component}
+//   </Route>
+// ))}
+//
+//
