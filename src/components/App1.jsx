@@ -30,9 +30,9 @@ const App = () => {
       username: string,
       id: Date.now(),
     };
-
     dispatch(addCustomerAction(user));
   };
+
   const removeCustomer = (element) => {
     dispatch(removeCustomerAction(element.id));
   };

@@ -11,7 +11,7 @@ const Article = ({ elem, ind }) => (
       <li>Author: {elem.author}</li>
       <li>Description: {elem.description}</li>
       <li>PublishedAt: {elem.publishedAt}</li>
-      <Link to={{ pathname: '/details', state: { elem } }}>DETAILS</Link>
+      <Link to={{ pathname: `/details/${elem.publishedAt}`, state: { elem } }}>DETAILS</Link>
     </ul>
   </div>
 );

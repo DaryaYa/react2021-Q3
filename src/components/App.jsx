@@ -30,9 +30,10 @@ const App = () => (
         <Switch>
           <Route exact path='/' component={Dashboard} />
           <Route exact path='/about' component={About} />
-          <Route path='/details'>
+          <Route path='/details/:id'>
             <Posts />
           </Route>
+          <Route component={() => <div>404 Not found</div>} />
         </Switch>
       </section>
     </Router>

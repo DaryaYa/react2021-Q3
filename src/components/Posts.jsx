@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import './posts.less';
 
 // const Posts = () => (
@@ -30,7 +30,9 @@ const Posts = (props) => {
         <li>Description: {cust.elem.description}</li>
         <li>PublishedAt: {cust.elem.publishedAt}</li>
         <li>Content: {cust.elem.content}</li>
-        <li>LINK to the source of the article: {cust.elem.url}</li>
+        <li>
+          <a href={cust.elem.url}>LINK to the source of the article</a>
+        </li>
         <Link to='/'>MAIN PAGE</Link>{' '}
       </ul>
     </div>
